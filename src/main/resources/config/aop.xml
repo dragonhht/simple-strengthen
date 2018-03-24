@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<aop>
+    <pointcut class="simple.strengthen.bean.Student" execut="print" >
+        <before class="simple.strengthen.bean.Advice" method="before" />
+        <after class="simple.strengthen.bean.AdviceClass" method="printAfter" />
+    </pointcut>
+</aop>
