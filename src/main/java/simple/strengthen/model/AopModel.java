@@ -16,6 +16,7 @@ public class AopModel {
 
     private String className;
     private String execut;
+    private String returnType;
     private List<AdviceModel> advices = new ArrayList<>();
 
     public boolean addAdvice(AdviceModel advice) {

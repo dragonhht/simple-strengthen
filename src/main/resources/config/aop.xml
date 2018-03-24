@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <aop>
-    <pointcut class="simple.strengthen.bean.Student" execut="print" >
+    <pointcut class="simple.strengthen.bean.Student" execut="void print(int, java.lang.String)" >
         <before class="simple.strengthen.bean.Advice" method="before" />
         <after class="simple.strengthen.bean.AdviceClass" method="printAfter" />
     </pointcut>

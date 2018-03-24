@@ -12,6 +12,7 @@ import simple.strengthen.utils.GetBean;
 import simple.strengthen.utils.AopXmlUtil;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
@@ -21,14 +22,6 @@ import java.lang.reflect.Proxy;
  * Date: 18-3-23
  */
 public class TestReflect {
-
-    @Test
-    public void testGetBeanInvokeMethod1() throws Exception {
-        GetBean getBean = GetBean.getInstance();
-        String className = "simple.strengthen.bean.Student";
-        String methodName = "print";
-        getBean.invokeMethod(className, methodName, null);
-    }
 
     @Test
     public void testGetBeanInvokeMethod2() throws Exception {
@@ -101,7 +94,21 @@ public class TestReflect {
         String xmlPath = "resources/config/aop.xml";
         AopModel model = AopXmlUtil.parserXml(xmlPath);
         Aop aop = new Aop(model);
-        aop.execut(model.getClassName(), model.getExecut(), null);
+        aop.execut(model.getClassName(), model.getReturnType(), model.getExecut(), 18, "江西");
+    }
+
+    @Test
+    public void testClassType() throws Exception {
+        String methodName = "print(int,java.lang.String)";
+        GetBean getBean = GetBean.getInstance();
+        Class<?> clas = getBean.getClass("simple.strengthen.bean.Student");
+        Method[] methods = clas.getMethods();
+        for (Method method : methods) {
+            //System.out.println(method);
+            if (method.toString().contains(methodName)) {
+                System.out.println(method);
+            }
+        }
     }
 
 }

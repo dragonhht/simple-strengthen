@@ -42,11 +42,29 @@ public class Aop {
      */
     public Object execut(String className, String methodName, Class<?>[] paramTypes, Object... args) throws Throwable {
         GetBean getBean = GetBean.getInstance();
+        Object obj = getProxyObject(className);
+        return getBean.invokeMethod(obj, methodName, paramTypes, args);
+    }
+
+    public Object execut(String className, String returnType, String methodNameWithParams, Object... args) throws Throwable {
+        GetBean getBean = GetBean.getInstance();
+        Object obj = getProxyObject(className);
+        return getBean.invokeMethod(obj, returnType,  methodNameWithParams, args);
+    }
+
+    /**
+     * 获取代理对象.
+     * @param className 对象的类名
+     * @return
+     * @throws Throwable
+     */
+    private Object getProxyObject(String className) throws Throwable {
+        GetBean getBean = GetBean.getInstance();
         Object object = getBean.getBean(className);
         InvocationHandler handler = new ProxyHandler(object, before, after);
         Class classInterface = getBean.getInterface(className);
-        Object obj = classInterface.cast(Proxy.newProxyInstance(getBean.getClass().getClassLoader(), object.getClass().getInterfaces(), handler));
-        return getBean.invokeMethod(obj, methodName, paramTypes, args);
+        Object obj = Proxy.newProxyInstance(getBean.getClass().getClassLoader(), object.getClass().getInterfaces(), handler);
+        return obj;
     }
 
     /**

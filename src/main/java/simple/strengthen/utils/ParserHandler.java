@@ -37,6 +37,9 @@ public class ParserHandler extends DefaultHandler {
             String classValue = attributes.getValue("class");
             model.setClassName(classValue);
             String executValue = attributes.getValue("execut");
+            String returnType = executValue.substring(0, executValue.indexOf(" "));
+            model.setReturnType(returnType);
+            executValue = executValue.substring(executValue.indexOf(" "));
             model.setExecut(executValue);
         }
 
